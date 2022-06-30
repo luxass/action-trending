@@ -2,9 +2,10 @@
   "name": "action-trending",
   "version": "0.0.0",
   "private": true,
+  "main": "lib/index.js",
   "description": "Fetch data from GitHub's Trending Page.",
   "scripts": {
-    "build": "tsup"
+    "build": "tsc && ncc build --source-map"
   },
   "keywords": [
     "trending",
@@ -22,7 +23,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.0.0",
-    "tsup": "^6.1.2",
+    "@vercel/ncc": "^0.34.0",
     "typescript": "^4.7.4"
   }
 }
