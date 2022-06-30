@@ -1,0 +1,24 @@
+name: "GitHub Trending Data"
+description: "Fetch data from GitHub's Trending Page."
+author: "luxass"
+inputs:
+  type:
+    required: false
+    description: "Trending type either `repositories` or `developers`"
+    default: "repositories"
+  date:
+    required: false
+    description: "Date range either `daily`, `weekly` or `monthly`"
+    default: "daily"
+  language:
+    required: true
+    description: "Language to filter the trending data"
+  spoken:
+    required: false
+    description: "Language spoken to filter the trending data"
+  sponsorable:
+    required: false
+    description: "Sponsorable filter"
+runs:
+  using: "node16"
+  main: "dist/index.js"
