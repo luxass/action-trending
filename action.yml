@@ -1,6 +1,9 @@
-name: "GitHub Trending Data"
+name: "Trending Data"
 description: "Fetch data from GitHub's Trending Page."
 author: "luxass"
+branding:
+  icon: "box"
+  color: "blue"
 inputs:
   type:
     required: false
