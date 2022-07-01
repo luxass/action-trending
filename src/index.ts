@@ -1,6 +1,6 @@
-import { getInput, setFailed, info } from "@actions/core";
+import { getInput, setFailed, info, getBooleanInput } from "@actions/core";
 import { DateRanges, Type } from "./types";
-import cheerio from "cheerio";
+import { ensureFile, writeFile } from "fs-extra";
 import { getTrending } from "./trending";
 
 async function run(): Promise<void> {
@@ -12,13 +12,12 @@ async function run(): Promise<void> {
     const language = getInput("language");
 
     const spoken = getInput("spoken");
-    const sponsorable = getInput("sponsorable");
+    const sponsorable = getBooleanInput("sponsorable");
 
     info(type);
     info(dateRange);
     info(language);
     info(spoken);
-    info(sponsorable);
 
     const trending = await getTrending(
       type,
@@ -27,7 +26,12 @@ async function run(): Promise<void> {
       spoken,
       sponsorable
     );
-    info(JSON.stringify(trending));
+    const path = `${process.cwd()}/trending-${type}-${Math.floor(
+      Date.now() / 1000
+    )}.json`;
+
+    await ensureFile(path);
+    await writeFile(path, JSON.stringify(trending, null, 2));
   } catch (error) {
     if (error instanceof Error) setFailed(error.message);
   }

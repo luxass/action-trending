@@ -5,7 +5,12 @@ import {
   GITHUB_TRENDING_URL,
   GITHUB_URL,
 } from "./constants";
-import { DateRanges, TrendingItem, TrendingRepository } from "./types";
+import {
+  DateRanges,
+  TrendingDeveloper,
+  TrendingItem,
+  TrendingRepository,
+} from "./types";
 import { Cheerio, CheerioAPI, Element, load } from "cheerio";
 
 export async function getTrending(
@@ -13,12 +18,17 @@ export async function getTrending(
   dateRange: DateRanges,
   language: string,
   spoken: string,
-  sponsorable: string
+  sponsorable: boolean
 ): Promise<TrendingItem[]> {
   const isDev = type === "developers";
   const base = isDev ? GITHUB_TRENDING_DEV_URL : GITHUB_TRENDING_URL;
 
-  const url = `${base}${encodeURIComponent(language)}?since=${dateRange}`;
+  let url = `${base}${encodeURIComponent(
+    language
+  )}?since=${dateRange}&spoken_language_code=${spoken}`;
+  if (sponsorable) {
+    url += "&sponsorable=1";
+  }
   info(`Fetching ${url}`);
   const client = new HttpClient();
 
@@ -39,7 +49,38 @@ function getTrendingDevelopers(
   el: Cheerio<Element>,
   $: CheerioAPI
 ): TrendingItem {
-  return {} as TrendingItem;
+  const relativeUrl = el.find(".h3 a").attr("href") || "";
+  const sponsorRelativeUrl = el
+    .find('span:contains("Sponsor")')
+    .parent()
+    .attr("href");
+  const name = el.find(".h3 a").text().trim();
+
+  const username = relativeUrl.slice(1);
+
+  const type = el.find("img").parent().attr("data-hovercard-type");
+
+  const repo = el.find(".mt-2 > article");
+
+  repo.find("svg").remove();
+
+  return {
+    username,
+    name,
+    type,
+    url: `${GITHUB_URL}${relativeUrl}`,
+    sponsorUrl: sponsorRelativeUrl
+      ? `${GITHUB_URL}${sponsorRelativeUrl}`
+      : undefined,
+    avatar: el.find("img").attr("src")?.replace(/\?s=.*$/, ""),
+    repo: repo.length
+      ? {
+          name: repo.find("a").text().trim(),
+          description: repo.find(".f6.mt-1").text().trim() || "",
+          url: `${GITHUB_URL}${repo.find("a").attr("href")}`,
+        }
+      : null,
+  } as TrendingDeveloper;
 }
 
 function getTrendingRepositories(

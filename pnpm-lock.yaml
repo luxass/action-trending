@@ -3,17 +3,21 @@ lockfileVersion: 5.4
 specifiers:
   '@actions/core': ^1.9.0
   '@actions/http-client': ^2.0.1
+  '@types/fs-extra': ^9.0.13
   '@types/node': ^18.0.0
   '@vercel/ncc': ^0.34.0
   cheerio: 1.0.0-rc.12
+  fs-extra: ^10.1.0
   typescript: ^4.7.4
 
 dependencies:
   '@actions/core': 1.9.0
   '@actions/http-client': 2.0.1
   cheerio: 1.0.0-rc.12
+  fs-extra: 10.1.0
 
 devDependencies:
+  '@types/fs-extra': 9.0.13
   '@types/node': 18.0.0
   '@vercel/ncc': 0.34.0
   typescript: 4.7.4
@@ -31,6 +35,12 @@ packages:
     dependencies:
       tunnel: 0.0.6
     dev: false
+
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 18.0.0
+    dev: true
 
   /@types/node/18.0.0:
     resolution: {integrity: sha512-cHlGmko4gWLVI27cGJntjs/Sj8th9aYwplmZFwmmgYQQvL5NUsgVJG7OddLvNfLqYS31KFN0s3qlaD9qCaxACA==}
@@ -116,6 +126,19 @@ packages:
     engines: {node: '>=0.12'}
     dev: false
 
+  /fs-extra/10.1.0:
+    resolution: {integrity: sha512-oRXApq54ETRj4eMiFzGnHWGy+zo5raudjuxN0b8H7s/RU2oW0Wvsx9O0ACRN/kRq9E8Vu/ReskGB5o3ji+FzHQ==}
+    engines: {node: '>=12'}
+    dependencies:
+      graceful-fs: 4.2.10
+      jsonfile: 6.1.0
+      universalify: 2.0.0
+    dev: false
+
+  /graceful-fs/4.2.10:
+    resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
+    dev: false
+
   /htmlparser2/8.0.1:
     resolution: {integrity: sha512-4lVbmc1diZC7GUJQtRQ5yBAeUCL1exyMwmForWkRLnwyzWBFxN633SALPMGYaWZvKe9j1pRZJpauvmxENSp/EA==}
     dependencies:
@@ -123,6 +146,14 @@ packages:
       domhandler: 5.0.3
       domutils: 3.0.1
       entities: 4.3.0
+    dev: false
+
+  /jsonfile/6.1.0:
+    resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
+    dependencies:
+      universalify: 2.0.0
+    optionalDependencies:
+      graceful-fs: 4.2.10
     dev: false
 
   /nth-check/2.1.1:
@@ -154,3 +185,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /universalify/2.0.0:
+    resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
+    engines: {node: '>= 10.0.0'}
+    dev: false
