@@ -26,7 +26,7 @@ async function run(): Promise<void> {
       spoken,
       sponsorable
     );
-    const path = `${process.cwd()}/trending-${type}-${type}-${Math.floor(
+    const path = `${process.cwd()}/trending-${type}-${dateRange}-${language}-${Math.floor(
       Date.now() / 1000
     )}.json`;
 

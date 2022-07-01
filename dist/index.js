@@ -46,7 +46,7 @@ function run() {
             (0, core_1.info)(language);
             (0, core_1.info)(spoken);
             const trending = yield (0, trending_1.getTrending)(type, dateRange, language, spoken, sponsorable);
-            const path = `${process.cwd()}/trending-${type}-${type}-${Math.floor(Date.now() / 1000)}.json`;
+            const path = `${process.cwd()}/trending-${type}-${dateRange}-${language}-${Math.floor(Date.now() / 1000)}.json`;
             yield (0, fs_extra_1.ensureFile)(path);
             yield (0, fs_extra_1.writeFile)(path, JSON.stringify(trending, null, 2));
         }
