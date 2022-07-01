@@ -21,6 +21,7 @@
   "dependencies": {
     "@actions/core": "^1.9.0",
     "@actions/http-client": "^2.0.1",
+    "@luxass/luxals-pipi": "^2.0.2",
     "cheerio": "1.0.0-rc.12",
     "fs-extra": "^10.1.0"
   },

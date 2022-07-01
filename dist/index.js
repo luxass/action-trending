@@ -33,9 +33,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(6953);
 const fs_extra_1 = __nccwpck_require__(5357);
 const trending_1 = __nccwpck_require__(1796);
+const luxals_pipi_1 = __nccwpck_require__(3954);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
+            const output = (0, core_1.getInput)("output");
             const type = (0, core_1.getInput)("type");
             const dateRange = (0, core_1.getInput)("date");
             const language = (0, core_1.getInput)("language");
@@ -46,7 +48,15 @@ function run() {
             (0, core_1.info)(language);
             (0, core_1.info)(spoken);
             const trending = yield (0, trending_1.getTrending)(type, dateRange, language, spoken, sponsorable);
-            const path = `${process.cwd()}/trending-${type}-${dateRange}-${language}-${Math.floor(Date.now() / 1000)}.json`;
+            const path = (0, luxals_pipi_1.pipi)(output, {
+                cwd: process.cwd(),
+                language: language,
+                unix: `${Math.floor(Date.now() / 1000)}`,
+                type: type,
+                spoken: spoken,
+                date: dateRange,
+                sponsorable: `${sponsorable}`,
+            });
             yield (0, fs_extra_1.ensureFile)(path);
             yield (0, fs_extra_1.writeFile)(path, JSON.stringify(trending, null, 2));
         }
@@ -1921,6 +1931,48 @@ function checkBypass(reqUrl) {
 }
 exports.checkBypass = checkBypass;
 //# sourceMappingURL=proxy.js.map
+
+/***/ }),
+
+/***/ 3954:
+/***/ ((module) => {
+
+var __defProp = Object.defineProperty;
+var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+var __getOwnPropNames = Object.getOwnPropertyNames;
+var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __export = (target, all) => {
+  for (var name in all)
+    __defProp(target, name, { get: all[name], enumerable: true });
+};
+var __copyProps = (to, from, except, desc) => {
+  if (from && typeof from === "object" || typeof from === "function") {
+    for (let key of __getOwnPropNames(from))
+      if (!__hasOwnProp.call(to, key) && key !== except)
+        __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+  }
+  return to;
+};
+var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
+
+// src/index.ts
+var src_exports = {};
+__export(src_exports, {
+  pipi: () => pipi
+});
+module.exports = __toCommonJS(src_exports);
+function pipi(str, placeholders) {
+  return str.replace(/\{([^}]+)\}/g, (_, key) => {
+    const value = placeholders[key];
+    if (typeof value === "function") {
+      return value();
+    }
+    return value;
+  });
+}
+// Annotate the CommonJS export names for ESM import in node:
+0 && (0);
+
 
 /***/ }),
 

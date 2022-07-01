@@ -23,6 +23,10 @@ inputs:
     required: false
     description: "Sponsorable filter"
     default: true
+  output:
+    required: false
+    description: "Where to write files to"
+    default: "{cwd}/{language}/{unix}.json"
 runs:
   using: "node16"
   main: "dist/index.js"

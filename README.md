@@ -12,7 +12,7 @@ See [action.yml](action.yml)
 # Developers
 steps:
   - uses: actions/checkout@v3
-  - uses: luxass/action-trending@v2
+  - uses: luxass/action-trending@v2.0.1
     with:
       type: developers
       date: weekly # daily, weekly, monthly (default: daily)
@@ -24,7 +24,7 @@ steps:
 # Repositories
 steps:
   - uses: actions/checkout@v3
-  - uses: luxass/action-trending@v2
+  - uses: luxass/action-trending@v2.0.1
     with:
       date: weekly # daily, weekly, monthly (default: daily)
       language: typescript
@@ -41,15 +41,15 @@ jobs:
     strategy:
       matrix:
         language: ["python", "javascript", "typescript"]
-    name: Lang ${{matrix.lang}} Fetcher
+    name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
-      - uses: luxass/action-trending@v2
+      - uses: luxass/action-trending@v2.0.1
         with:
           type: developers
           date: weekly # daily, weekly, monthly (default: daily)
           sponsorable: true # (default: false)
-          language: ${{matrix.lang}}
+          language: ${{matrix.language}}
 
 ```
 
@@ -61,12 +61,24 @@ jobs:
     strategy:
       matrix:
         language: ["python", "javascript", "typescript"]
-    name: Lang ${{matrix.lang}} Fetcher
+    name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
-      - uses: luxass/action-trending@v2
+      - uses: luxass/action-trending@v2.0.1
         with:
           date: weekly # daily, weekly, monthly (default: daily)
           spoken: da
-          language: ${{matrix.lang}}
+          language: ${{matrix.language}}
 ```
+
+
+### Output option
+| Placeholder | Value                       |
+|-------------|-----------------------------|
+| cwd         | current working directory   |
+| language    | language filter e.g. go     |
+| unix        | current time in unix        |
+| type        | repositories or developers  |
+| spoken      | language spoken e.g. danish |
+| date        | date range e.g. daily       |
+| sponsorable | developer sponsorable       |
