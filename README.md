@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         language: ["python", "javascript", "typescript"]
-    name: Lang ${{matrix.lang}} Fetcher
+    name: ${{matrix.language}} Language
     steps:
       - uses: actions/checkout@v3
       - uses: luxass/action-trending@v2
@@ -49,7 +49,7 @@ jobs:
           type: developers
           date: weekly # daily, weekly, monthly (default: daily)
           sponsorable: true # (default: false)
-          language: ${{matrix.lang}}
+          language: ${{matrix.language}}
 
 ```
 
@@ -61,12 +61,12 @@ jobs:
     strategy:
       matrix:
         language: ["python", "javascript", "typescript"]
-    name: Lang ${{matrix.lang}} Fetcher
+    name: ${{matrix.language}} Language
     steps:
       - uses: actions/checkout@v3
       - uses: luxass/action-trending@v2
         with:
           date: weekly # daily, weekly, monthly (default: daily)
           spoken: da
-          language: ${{matrix.lang}}
+          language: ${{matrix.language}}
 ```
