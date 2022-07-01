@@ -9,9 +9,7 @@ async function run(): Promise<void> {
 
     const dateRange: DateRanges = <DateRanges>getInput("date");
 
-    const language = getInput("language", {
-      required: true,
-    });
+    const language = getInput("language");
 
     const spoken = getInput("spoken");
     const sponsorable = getInput("sponsorable");
@@ -22,7 +20,14 @@ async function run(): Promise<void> {
     info(spoken);
     info(sponsorable);
 
-    getTrending(type, dateRange, language, spoken, sponsorable);
+    const trending = await getTrending(
+      type,
+      dateRange,
+      language,
+      spoken,
+      sponsorable
+    );
+    info(JSON.stringify(trending));
   } catch (error) {
     if (error instanceof Error) setFailed(error.message);
   }
