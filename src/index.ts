@@ -16,11 +16,6 @@ async function run(): Promise<void> {
     const spoken = getInput("spoken");
     const sponsorable = getBooleanInput("sponsorable");
 
-    info(type);
-    info(dateRange);
-    info(language);
-    info(spoken);
-
     const trending = await getTrending(
       type,
       dateRange,

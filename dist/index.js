@@ -43,10 +43,6 @@ function run() {
             const language = (0, core_1.getInput)("language");
             const spoken = (0, core_1.getInput)("spoken");
             const sponsorable = (0, core_1.getBooleanInput)("sponsorable");
-            (0, core_1.info)(type);
-            (0, core_1.info)(dateRange);
-            (0, core_1.info)(language);
-            (0, core_1.info)(spoken);
             const trending = yield (0, trending_1.getTrending)(type, dateRange, language, spoken, sponsorable);
             const path = (0, luxals_pipi_1.pipi)(output, {
                 cwd: process.cwd(),
@@ -95,8 +91,11 @@ function getTrending(type, dateRange, language, spoken, sponsorable) {
     return __awaiter(this, void 0, void 0, function* () {
         const isDev = type === "developers";
         const base = isDev ? constants_1.GITHUB_TRENDING_DEV_URL : constants_1.GITHUB_TRENDING_URL;
-        let url = `${base}${encodeURIComponent(language)}?since=${dateRange}&spoken_language_code=${spoken}`;
-        if (sponsorable) {
+        let url = `${base}${encodeURIComponent(language)}?since=${dateRange}`;
+        if (spoken && !isDev) {
+            url += `&spoken_language_code=${spoken}`;
+        }
+        if (sponsorable && isDev) {
             url += "&sponsorable=1";
         }
         (0, core_1.info)(`Fetching ${url}`);

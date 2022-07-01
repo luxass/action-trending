@@ -25,10 +25,17 @@ export async function getTrending(
 
   let url = `${base}${encodeURIComponent(
     language
-  )}?since=${dateRange}&spoken_language_code=${spoken}`;
-  if (sponsorable) {
+  )}?since=${dateRange}`;
+  
+  if (spoken && !isDev) {
+    url += `&spoken_language_code=${spoken}`;
+  }
+    
+  if (sponsorable && isDev) {
     url += "&sponsorable=1";
   }
+
+
   info(`Fetching ${url}`);
   const client = new HttpClient();
 

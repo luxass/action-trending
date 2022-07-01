@@ -12,7 +12,7 @@ See [action.yml](action.yml)
 # Developers
 steps:
   - uses: actions/checkout@v3
-  - uses: luxass/action-trending@v2.0.1
+  - uses: luxass/action-trending@v2.0.2
     with:
       type: developers
       date: weekly # daily, weekly, monthly (default: daily)
@@ -24,7 +24,7 @@ steps:
 # Repositories
 steps:
   - uses: actions/checkout@v3
-  - uses: luxass/action-trending@v2.0.1
+  - uses: luxass/action-trending@v2.0.2
     with:
       date: weekly # daily, weekly, monthly (default: daily)
       language: typescript
@@ -44,7 +44,7 @@ jobs:
     name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
-      - uses: luxass/action-trending@v2.0.1
+      - uses: luxass/action-trending@v2.0.2
         with:
           type: developers
           date: weekly # daily, weekly, monthly (default: daily)
@@ -64,7 +64,7 @@ jobs:
     name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
-      - uses: luxass/action-trending@v2.0.1
+      - uses: luxass/action-trending@v2.0.2
         with:
           date: weekly # daily, weekly, monthly (default: daily)
           spoken: da
