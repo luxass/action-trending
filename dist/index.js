@@ -75,6 +75,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getTrending = void 0;
+const core_1 = __nccwpck_require__(6953);
 const http_client_1 = __nccwpck_require__(9706);
 const constants_1 = __nccwpck_require__(244);
 const cheerio_1 = __nccwpck_require__(6123);
@@ -83,6 +84,7 @@ function getTrending(type, dateRange, language, spoken, sponsorable) {
         const isDev = type === "developers";
         const base = isDev ? constants_1.GITHUB_TRENDING_DEV_URL : constants_1.GITHUB_TRENDING_URL;
         const url = `${base}${encodeURIComponent(language)}?since=${dateRange}`;
+        (0, core_1.info)(`Fetching ${url}`);
         const client = new http_client_1.HttpClient();
         const data = yield client.get(url);
         const body = yield data.readBody();

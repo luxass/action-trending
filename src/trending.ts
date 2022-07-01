@@ -19,6 +19,7 @@ export async function getTrending(
   const base = isDev ? GITHUB_TRENDING_DEV_URL : GITHUB_TRENDING_URL;
 
   const url = `${base}${encodeURIComponent(language)}?since=${dateRange}`;
+  info(`Fetching ${url}`);
   const client = new HttpClient();
 
   const data = await client.get(url);
