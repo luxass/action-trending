@@ -19,6 +19,7 @@ inputs:
   sponsorable:
     required: false
     description: "Sponsorable filter"
+    default: true
 runs:
   using: "node16"
   main: "dist/index.js"
