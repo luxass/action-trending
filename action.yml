@@ -11,7 +11,7 @@ inputs:
     description: "Date range either `daily`, `weekly` or `monthly`"
     default: "daily"
   language:
-    required: true
+    required: false
     description: "Language to filter the trending data"
   spoken:
     required: false

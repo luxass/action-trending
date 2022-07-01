@@ -1,6 +1,20 @@
 require('./sourcemap-register.js');/******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 244:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.GITHUB_TRENDING_URL = exports.GITHUB_TRENDING_DEV_URL = void 0;
+const GITHUB_URL = "https://github.com";
+exports.GITHUB_TRENDING_DEV_URL = `${GITHUB_URL}/trending/developers`;
+exports.GITHUB_TRENDING_URL = `${GITHUB_URL}/trending`;
+
+
+/***/ }),
+
 /***/ 259:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -17,11 +31,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core_1 = __nccwpck_require__(953);
+const trending_1 = __nccwpck_require__(796);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const type = (0, core_1.getInput)("type");
-            const dateRange = (0, core_1.getInput)("date-range");
+            const dateRange = (0, core_1.getInput)("date");
             const language = (0, core_1.getInput)("language", {
                 required: true,
             });
@@ -32,6 +47,7 @@ function run() {
             (0, core_1.info)(language);
             (0, core_1.info)(spoken);
             (0, core_1.info)(sponsorable);
+            (0, trending_1.getTrending)(type, dateRange, language, spoken, sponsorable);
         }
         catch (error) {
             if (error instanceof Error)
@@ -40,6 +56,40 @@ function run() {
     });
 }
 run();
+
+
+/***/ }),
+
+/***/ 796:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.getTrending = void 0;
+const core_1 = __nccwpck_require__(953);
+const http_client_1 = __nccwpck_require__(706);
+const constants_1 = __nccwpck_require__(244);
+function getTrending(type, dateRange, language, spoken, sponsorable) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const isDev = type === "developers";
+        const base = isDev ? constants_1.GITHUB_TRENDING_DEV_URL : constants_1.GITHUB_TRENDING_URL;
+        const url = `${base}${encodeURIComponent(language)}?since=${dateRange}`;
+        const client = new http_client_1.HttpClient();
+        const data = yield client.get(url);
+        (0, core_1.info)(yield data.readBody());
+    });
+}
+exports.getTrending = getTrending;
 
 
 /***/ }),
