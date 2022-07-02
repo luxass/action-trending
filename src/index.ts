@@ -27,13 +27,13 @@ async function run(): Promise<void> {
     const path = pipi(output, {
       cwd: process.cwd(),
       language: () => {
-        if (language.includes("++")) {
-          language = language.replace(/\+\+/g, "pp");
-        }
+        // if (language.includes("++")) {
+        //   language = language.replace(/\+\+/g, "pp");
+        // }
         language = language
           .replace(/\s/g, "-")
-          .replace(/#/g, "sharp")
-          .replace(/\+/g, "-");
+          // .replace(/#/g, "sharp")
+          // .replace(/\+/g, "-");
 
         return language;
       },

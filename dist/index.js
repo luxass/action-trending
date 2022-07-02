@@ -47,13 +47,13 @@ function run() {
             const path = (0, luxals_pipi_1.pipi)(output, {
                 cwd: process.cwd(),
                 language: () => {
-                    if (language.includes("++")) {
-                        language = language.replace(/\+\+/g, "pp");
-                    }
+                    // if (language.includes("++")) {
+                    //   language = language.replace(/\+\+/g, "pp");
+                    // }
                     language = language
-                        .replace(/\s/g, "-")
-                        .replace(/#/g, "sharp")
-                        .replace(/\+/g, "-");
+                        .replace(/\s/g, "-");
+                    // .replace(/#/g, "sharp")
+                    // .replace(/\+/g, "-");
                     return language;
                 },
                 unix: `${Math.floor(Date.now() / 1000)}`,
