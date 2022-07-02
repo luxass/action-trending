@@ -11,7 +11,7 @@ async function run(): Promise<void> {
 
     const dateRange: DateRanges = <DateRanges>getInput("date");
 
-    const language = getInput("language");
+    let language = getInput("language");
 
     const spoken = getInput("spoken");
     const sponsorable = getBooleanInput("sponsorable");
@@ -26,7 +26,17 @@ async function run(): Promise<void> {
 
     const path = pipi(output, {
       cwd: process.cwd(),
-      language: language,
+      language: () => {
+        if (language.includes("++")) {
+          language = language.replace(/\+\+/g, "pp");
+        }
+        language = language
+          .replace(/\s/g, "-")
+          .replace(/#/g, "sharp")
+          .replace(/\+/g, "-");
+
+        return language;
+      },
       unix: `${Math.floor(Date.now() / 1000)}`,
       type: type,
       spoken: spoken,

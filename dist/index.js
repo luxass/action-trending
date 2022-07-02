@@ -40,13 +40,22 @@ function run() {
             const output = (0, core_1.getInput)("output");
             const type = (0, core_1.getInput)("type");
             const dateRange = (0, core_1.getInput)("date");
-            const language = (0, core_1.getInput)("language");
+            let language = (0, core_1.getInput)("language");
             const spoken = (0, core_1.getInput)("spoken");
             const sponsorable = (0, core_1.getBooleanInput)("sponsorable");
             const trending = yield (0, trending_1.getTrending)(type, dateRange, language, spoken, sponsorable);
             const path = (0, luxals_pipi_1.pipi)(output, {
                 cwd: process.cwd(),
-                language: language,
+                language: () => {
+                    if (language.includes("++")) {
+                        language = language.replace(/\+\+/g, "pp");
+                    }
+                    language = language
+                        .replace(/\s/g, "-")
+                        .replace(/#/g, "sharp")
+                        .replace(/\+/g, "-");
+                    return language;
+                },
                 unix: `${Math.floor(Date.now() / 1000)}`,
                 type: type,
                 spoken: spoken,
