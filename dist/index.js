@@ -62,6 +62,7 @@ function run() {
                 date: dateRange,
                 sponsorable: `${sponsorable}`,
             });
+            (0, core_1.info)(`Writing to ${path}`);
             yield (0, fs_extra_1.ensureFile)(path);
             yield (0, fs_extra_1.writeFile)(path, JSON.stringify(trending, null, 2));
         }

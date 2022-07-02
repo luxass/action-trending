@@ -44,6 +44,7 @@ async function run(): Promise<void> {
       sponsorable: `${sponsorable}`,
     });
 
+    info(`Writing to ${path}`);
     await ensureFile(path);
     await writeFile(path, JSON.stringify(trending, null, 2));
   } catch (error) {
