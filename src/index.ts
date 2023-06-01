@@ -1,15 +1,15 @@
-import { getInput, setFailed, info, getBooleanInput } from "@actions/core";
-import { DateRanges, Type } from "./types";
+import { getBooleanInput, getInput, info, setFailed } from "@actions/core";
 import { ensureFile, writeFile } from "fs-extra";
+import { pipi } from "@luxass/luxals";
+import type { DateRanges, Type } from "./types";
 import { getTrending } from "./trending";
-import { pipi } from "@luxass/luxals-pipi";
 
 async function run(): Promise<void> {
   try {
     const output = getInput("output");
-    const type: Type = <Type>getInput("type");
+    const type = <Type>getInput("type");
 
-    const dateRange: DateRanges = <DateRanges>getInput("date");
+    const dateRange = <DateRanges>getInput("date");
 
     let language = getInput("language");
 
@@ -31,17 +31,17 @@ async function run(): Promise<void> {
         //   language = language.replace(/\+\+/g, "pp");
         // }
         language = language
-          .replace(/\s/g, "-")
-          // .replace(/#/g, "sharp")
-          // .replace(/\+/g, "-");
+          .replace(/\s/g, "-");
+        // .replace(/#/g, "sharp")
+        // .replace(/\+/g, "-");
 
         return language;
       },
       unix: `${Math.floor(Date.now() / 1000)}`,
-      type: type,
-      spoken: spoken,
+      type,
+      spoken,
       date: dateRange,
-      sponsorable: `${sponsorable}`,
+      sponsorable: `${sponsorable}`
     });
 
     info(`Writing to ${path}`);

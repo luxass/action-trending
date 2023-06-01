@@ -1,17 +1,18 @@
 import { info } from "@actions/core";
 import { HttpClient } from "@actions/http-client";
+import type { Cheerio, CheerioAPI, Element } from "cheerio";
+import { load } from "cheerio";
 import {
   GITHUB_TRENDING_DEV_URL,
   GITHUB_TRENDING_URL,
-  GITHUB_URL,
+  GITHUB_URL
 } from "./constants";
-import {
+import type {
   DateRanges,
   TrendingDeveloper,
   TrendingItem,
-  TrendingRepository,
+  TrendingRepository
 } from "./types";
-import { Cheerio, CheerioAPI, Element, load } from "cheerio";
 
 export async function getTrending(
   type: string,
@@ -26,11 +27,11 @@ export async function getTrending(
   let url = `${base}${encodeURIComponent(
     language
   )}?since=${dateRange}`;
-  
+
   if (spoken && !isDev) {
     url += `&spoken_language_code=${spoken}`;
   }
-    
+
   if (sponsorable && isDev) {
     url += "&sponsorable=1";
   }
@@ -46,19 +47,18 @@ export async function getTrending(
 
   return elements.map((_el) => {
     const el = $(_el);
-    return isDev
-      ? getTrendingDevelopers(el, $)
-      : getTrendingRepositories(el, $);
+    return isDev ?
+      getTrendingDevelopers(el) :
+      getTrendingRepositories(el, $);
   });
 }
 
 function getTrendingDevelopers(
-  el: Cheerio<Element>,
-  $: CheerioAPI
+  el: Cheerio<Element>
 ): TrendingItem {
   const relativeUrl = el.find(".h3 a").attr("href") || "";
   const sponsorRelativeUrl = el
-    .find('span:contains("Sponsor")')
+    .find("span:contains(\"Sponsor\")")
     .parent()
     .attr("href");
   const name = el.find(".h3 a").text().trim();
@@ -76,17 +76,17 @@ function getTrendingDevelopers(
     name,
     type,
     url: `${GITHUB_URL}${relativeUrl}`,
-    sponsorUrl: sponsorRelativeUrl
-      ? `${GITHUB_URL}${sponsorRelativeUrl}`
-      : undefined,
+    sponsorUrl: sponsorRelativeUrl ?
+      `${GITHUB_URL}${sponsorRelativeUrl}` :
+      undefined,
     avatar: el.find("img").attr("src")?.replace(/\?s=.*$/, ""),
-    repo: repo.length
-      ? {
+    repo: repo.length ?
+        {
           name: repo.find("a").text().trim(),
           description: repo.find(".f6.mt-1").text().trim() || "",
-          url: `${GITHUB_URL}${repo.find("a").attr("href")}`,
-        }
-      : null,
+          url: `${GITHUB_URL}${repo.find("a").attr("href")}`
+        } :
+      null
   } as TrendingDeveloper;
 }
 
@@ -101,15 +101,15 @@ function getTrendingRepositories(
   const periodStars = el.find(".float-sm-right").text().trim() || "";
 
   const builtBy = el
-    .find('span:contains("Built by")')
-    .find('[data-hovercard-type="user"]')
+    .find("span:contains(\"Built by\")")
+    .find("[data-hovercard-type=\"user\"]")
     .map((i, user) => {
       const altString = $(user).children("img").attr("alt");
       const avatarUrl = $(user).children("img").attr("src");
       return {
         username: altString ? altString.slice(1) : null,
         href: `${GITHUB_URL}${user.attribs.href}`,
-        avatar: avatarUrl?.replace(/\?s=.*$/, ""),
+        avatar: avatarUrl?.replace(/\?s=.*$/, "")
       };
     })
     .get();
@@ -153,6 +153,6 @@ function getTrendingRepositories(
       periodStars.split(" ")[0].replace(",", "") || "0",
       10
     ),
-    builtBy,
+    builtBy
   } as TrendingRepository;
 }

@@ -1,34 +1,37 @@
 {
   "name": "action-trending",
-  "version": "0.0.0",
   "private": true,
-  "main": "lib/index.js",
   "description": "Fetch data from GitHub's Trending Page.",
-  "scripts": {
-    "build": "tsc && ncc build --source-map"
+  "author": "luxass",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luxass/action-trending.git"
   },
   "keywords": [
     "trending",
     "github",
     "github trending"
   ],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/luxass/action-trending.git"
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "tsc && ncc build --source-map",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
-  "author": "luxass",
-  "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.9.0",
-    "@actions/http-client": "^2.0.1",
-    "@luxass/luxals-pipi": "^2.0.2",
-    "cheerio": "1.0.0-rc.12",
-    "fs-extra": "^10.1.0"
+    "@actions/core": "^1.10.0",
+    "@actions/http-client": "^2.1.0",
+    "@luxass/luxals": "^3.0.6",
+    "cheerio": "^1.0.0-rc.12",
+    "fs-extra": "^11.1.1"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/node": "^18.0.0",
-    "@vercel/ncc": "^0.34.0",
-    "typescript": "^4.7.4"
+    "@luxass/eslint-config": "^3.2.0",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.16.16",
+    "@vercel/ncc": "^0.36.1",
+    "eslint": "^8.41.0",
+    "typescript": "^5.0.4"
   }
 }

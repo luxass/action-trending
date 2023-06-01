@@ -1,32 +1,32 @@
-name: "Trending Data"
+name: Trending Data
 description: "Fetch data from GitHub's Trending Page."
-author: "luxass"
+author: luxass
 branding:
-  icon: "box"
-  color: "blue"
+  icon: box
+  color: blue
 inputs:
   type:
     required: false
-    description: "Trending type either `repositories` or `developers`"
-    default: "repositories"
+    description: Trending type either `repositories` or `developers`
+    default: repositories
   date:
     required: false
     description: "Date range either `daily`, `weekly` or `monthly`"
-    default: "daily"
+    default: daily
   language:
     required: false
-    description: "Language to filter the trending data"
+    description: Language to filter the trending data
   spoken:
     required: false
-    description: "Language spoken to filter the trending data"
+    description: Language spoken to filter the trending data
   sponsorable:
     required: false
-    description: "Sponsorable filter"
+    description: Sponsorable filter
     default: true
   output:
     required: false
-    description: "Where to write files to"
+    description: Where to write files to
     default: "{cwd}/{language}/{unix}.json"
 runs:
-  using: "node16"
-  main: "dist/index.js"
+  using: node18
+  main: dist/index.js

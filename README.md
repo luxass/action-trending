@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        language: ["python", "javascript", "typescript"]
+        language: [python, javascript, typescript]
     name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
@@ -60,7 +60,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        language: ["python", "javascript", "typescript"]
+        language: [python, javascript, typescript]
     name: ${{matrix.language}} language
     steps:
       - uses: actions/checkout@v3
