@@ -6,6 +6,8 @@ Use this Action to get the trending repositories/developers from GitHub.
 
 See [action.yml](action.yml)
 
+Or see the [test repo](https://github.com/luxass/github-trending)
+
 ### Basic
 
 ```yaml
